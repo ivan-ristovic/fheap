@@ -59,21 +59,22 @@ class FibonacciHeap:
     total_num_elements = 0
 
 
-    # Prints the root list
+    # Prints the node list
     def print(self, head = None):
+        print([x.value for x in self.iterate()])
+
+    # Iterate through the node list
+    def iterate(self, head = None):
         if head is None:
             head = self.root_list
         current = head
-        print('[ ', end='')
         while True:
-            print(current.value, end=' ')
+            yield current
             current = current.right
             if current == head:
                 break
-        print(']')
 
     # Retrieving minimum node is trivial because we maintain a pointer to it.
-    # Complexity: O(1)
     def find_minimum(self):
         if self.min_node == None:
             raise ValueError('Fibonacci heap is empty!')
