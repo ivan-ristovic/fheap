@@ -1,4 +1,4 @@
-'''
+﻿'''
 In computer science, a Fibonacci heap is a data structure for priority queue operations, 
 consisting of a collection of heap-ordered trees. It has a better amortized running time 
 than many other priority queue data structures including the binary heap and binomial heap. 
@@ -32,59 +32,75 @@ Source: https://en.wikipedia.org/wiki/Fibonacci_heap
 
 class FibonacciHeap:
 
-	# Internal Node class.
-	class Node:
-		def __init__(self, value):
-			# We currently only support number elements.
-			self.value = value
-			# Pointer to the parent node.
-			self.parent = None
-			# Pointer to the first child in the list of children.
-			self.child = None
-			# Pointer to the left node.
-			self.left = None
-			# Pointer to the right node.
-			self.right = None
-			# Node degree - number of children.
-			self.deg = 0
-			# Is node marked? This is needed for some of the operations.
-			self.mark = False
+    # Internal Node class.
+    class Node:
+        def __init__(self, value):
+            # We currently only support number elements.
+            self.value = value
+            # Pointer to the parent node.
+            self.parent = None
+            # Pointer to the first child in the list of children.
+            self.child = None
+            # Pointer to the left node.
+            self.left = None
+            # Pointer to the right node.
+            self.right = None
+            # Node degree - number of children.
+            self.deg = 0
+            # Is the node marked? This is needed for some of the operations.
+            self.mark = False
 
 
-	# Pointer to one element of the doubly-linked circular list of heap components.
-	root_list =  None
-	# Pointer to the node containing minimum element in the heap.
-	min_node = None
-	# Number of nodes in the entire heap.
-	total_num_elements = 0
+    # Pointer to one element of the doubly-linked circular list of heap components.
+    root_list =  None
+    # Pointer to the node containing minimum element in the heap.
+    min_node = None
+    # Number of nodes in the entire heap.
+    total_num_elements = 0
 
+
+    # Prints the root list
+    def print(self, head = None):
+        if head is None:
+            head = self.root_list
+        current = head
+        print('[ ', end='')
+        while True:
+            print(current.value, end=' ')
+            current = current.right
+            if current == head:
+                break
+        print(']')
 
     # Retrieving minimum node is trivial because we maintain a pointer to it.
-	# Complexity: O(1)
-	def find_minimum():
-		if self.min_node == None:
-			raise ValueError('Fibonacci heap is empty!')
-		return self.min_node.value
+    # Complexity: O(1)
+    def find_minimum(self):
+        if self.min_node == None:
+            raise ValueError('Fibonacci heap is empty!')
+        return self.min_node.value
 
     # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
     # This can be done in constant time and the potential does not change, leading again to constant amortized time.
-	# Complexity: O(1)
-	def merge():
-		# TODO
-		return
+    def merge():
+        # TODO
+        return
 
     # Insert works by creating a new heap with one element and doing merge. This takes constant time, and the potential 
     # increases by one, because the number of trees increases. The amortized cost is thus still constant. 
-	def insert():
-		# TODO
-		return
+    def insert(self, value):
+        # TODO
+        # begin temp impl
+        node = self.Node(value)
+        node.left = node.right = node
+        self.merge_with_root_list(node)
+        # end temp impl
 
     # Extracting minumum element is done in a few steps. First we take the root containing the minimum element and remove 
     # it. Its children will become roots of new trees. If the number of children was d, it takes time O(d) to process all 
     # new roots and the potential increases by d−1. Therefore, the amortized running time of this phase is O(d) = O(log n).
-	def extract_minimum():
-		# TODO
-		return
+    def extract_minimum(self):
+        # TODO
+        return
 
     # This operation works by taking the node, decreasing the key and if the heap property becomes violated (the new key 
     # is smaller than the key of the parent), the node is cut from its parent. If the parent is not a root, it is marked. 
@@ -95,13 +111,26 @@ class FibonacciHeap:
     # changes by −(k − 1) + 1 = − k + 2. Combining these 2 changes, the potential changes by 2(−k + 2) + k = −k + 4. The 
     # actual time to perform the cutting was O(k), therefore (again with a sufficiently large choice of c) the amortized 
     # running time is constant.
-	def decrease_key():
-		# TODO
-		return
+    def decrease_key(self):
+        # TODO
+        return
 
-	# Delete operation can be implemented simply by decreasing the key of the element to be deleted to minus infinity, thus 
-	# turning it into the minimum of the whole heap. Then we call extract minimum to remove it. The amortized running time 
-	# of this operation is O(log n).
-	def delete():
-		# TODO
-		return
+    # Delete operation can be implemented simply by decreasing the key of the element to be deleted to minus infinity, thus 
+    # turning it into the minimum of the whole heap. Then we call extract minimum to remove it. The amortized running time 
+    # of this operation is O(log n).
+    def delete(self, key):
+        # TODO
+        return
+
+
+    ##### Helper functions #####
+
+    # Merge a node with the doubly linked root list by adding it to second position in the list
+    def merge_with_root_list(self, node):
+        if self.root_list is None:
+            self.root_list = node
+        else:
+            node.right = self.root_list.right
+            node.left = self.root_list
+            self.root_list.right = node
+            self.root_list.right.left = node
