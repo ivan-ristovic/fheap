@@ -80,12 +80,6 @@ class FibonacciHeap:
             raise ValueError('Fibonacci heap is empty, minimum does not exist!')
         return self.min_node.value
 
-    # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
-    # This can be done in constant time and the potential does not change, leading again to constant amortized time.
-    def merge():
-        # TODO
-        return
-
     # Insert works by creating a new heap with one element and doing merge. This takes constant time, and the potential 
     # increases by one, because the number of trees increases. The amortized cost is thus still constant. 
     def insert(self, value):
@@ -99,11 +93,13 @@ class FibonacciHeap:
         else:
             self.min_node = node
 
+        self.total_num_elements += 1
+
     # Extracting minumum element is done in a few steps. First we take the root containing the minimum element and remove 
     # it. Its children will become roots of new trees. If the number of children was d, it takes time O(d) to process all 
     # new roots and the potential increases by d−1. Therefore, the amortized running time of this phase is O(d) = O(log n).
     def extract_minimum(self):
-        min = self.min_node
+        m = self.min_node
         if m is None:
             raise ValueError('Fibonacci heap is empty, cannot extract mininum!')
         else:
@@ -112,7 +108,7 @@ class FibonacciHeap:
                 children = [x for x in self.iterate(m.child)]
                 for i in range(0, len(children)):
                     self.merge_with_root_list(children[i])
-                    children[i]
+                    children[i].parent = None
                 # delete min node
                 self.remove_from_root_list(m)
             # update min
@@ -120,9 +116,12 @@ class FibonacciHeap:
                 self.min_node = None
                 self.root_list = None
             else:
-                # TODO iterate through the root list and find min
-                self.min_node = None
-        return
+                self.min_node = self.find_min_node_from_scratch()            
+            # consolidate trees so that no root has same rank
+            self.consolidate()
+            
+            self.total_num_elements -= 1
+        return m.value
 
     # This operation works by taking the node, decreasing the key and if the heap property becomes violated (the new key 
     # is smaller than the key of the parent), the node is cut from its parent. If the parent is not a root, it is marked. 
@@ -154,10 +153,71 @@ class FibonacciHeap:
         else:
             node.right = self.root_list.right
             node.left = self.root_list
-            self.root_list.right = node
             self.root_list.right.left = node
+            self.root_list.right = node
 
-    # Delete a node from the doubly linked root list.
+    # Deletes a node from the doubly linked root list.
     def remove_from_root_list(self, node):
-        # TODO
+        if self.root_list is None:
+            raise ValueError('Fibonacci heap is empty, there is no node to remove!')
+        if self.root_list == node:
+            # check if there's only one element in the list
+            if self.root_list == self.root_list.right:
+                self.root_list = None
+                return
+            else:
+                self.root_list = node.right
+        node.left.right = node.right
+        node.right.left = node.left
         return
+    
+    # Consolidates trees so that no root has same rank.
+    def consolidate(self):
+        ranks_mapping = [None] * self.total_num_elements
+        for node in self.iterate(self.root_list):
+            degree = node.deg
+            while ranks_mapping[degree] != None:
+                other = ranks_mapping[degree]
+                if node.value < other.value:
+                    temp = node
+                    node, other = other, temp
+                self.merge_heaps(other, node)
+                ranks_mapping[degree] = None
+                degree += 1
+            ranks_mapping[degree] = node
+
+        return
+
+    # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
+    # This can be done in constant time and the potential does not change, leading again to constant amortized time.
+    def merge_heaps(self, node, other):
+        self.remove_from_root_list(other)
+        other.left = other.right = other
+        # Adding other node to child list of the frst one.
+        self.merge_with_child_list(node, other)
+        node.deg += 1
+        other.parent = node
+        other.mark = False
+
+        return
+
+    # Merges a node with the doubly linked child list of the root node.
+    def merge_with_child_list(self, parent, node):
+        if parent.child is None:
+            parent.child = node
+        else:
+            node.right = parent.child.right
+            node.left = parent.child
+            parent.child.right.left = node
+            parent.child.right = node
+
+    # Iterates through whole list and finds minimum node.
+    def find_min_node_from_scratch(self):
+        if self.root_list is None:
+            return None
+        else:
+            min = self.root_list
+            for x in self.iterate(self.root_list):
+                if x.value < min.value:
+                    min = x
+            return min

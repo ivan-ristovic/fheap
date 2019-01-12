@@ -21,3 +21,13 @@ f.print()
 
 print("Minimum element in heap is: ")
 print(f.find_minimum())
+
+print("Minimum element in heap is: ")
+print(f.find_min_node_from_scratch().value)
+
+print("Deleting minimum: ")
+print(f.extract_minimum())
+print("Done!")
+
+print("Printing heap...")
+f.print()
