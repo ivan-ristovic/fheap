@@ -76,8 +76,8 @@ class FibonacciHeap:
 
     # Retrieving minimum node is trivial because we maintain a pointer to it.
     def find_minimum(self):
-        if self.min_node == None:
-            raise ValueError('Fibonacci heap is empty!')
+        if self.min_node is None:
+            raise ValueError('Fibonacci heap is empty, minimum does not exist!')
         return self.min_node.value
 
     # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
@@ -89,14 +89,11 @@ class FibonacciHeap:
     # Insert works by creating a new heap with one element and doing merge. This takes constant time, and the potential 
     # increases by one, because the number of trees increases. The amortized cost is thus still constant. 
     def insert(self, value):
-        # TODO
-        # begin temp impl
         node = self.Node(value)
         node.left = node.right = node
         self.merge_with_root_list(node)
-        # end temp impl
         # update min node
-        if self.min_node != None:
+        if self.min_node is not None:
             if self.min_node.value > node.value:
                 self.min_node = node
         else:
@@ -106,7 +103,25 @@ class FibonacciHeap:
     # it. Its children will become roots of new trees. If the number of children was d, it takes time O(d) to process all 
     # new roots and the potential increases by d−1. Therefore, the amortized running time of this phase is O(d) = O(log n).
     def extract_minimum(self):
-        # TODO
+        min = self.min_node
+        if m is None:
+            raise ValueError('Fibonacci heap is empty, cannot extract mininum!')
+        else:
+            if m.child is not None:
+                # attach children to root_list
+                children = [x for x in self.iterate(m.child)]
+                for i in range(0, len(children)):
+                    self.merge_with_root_list(children[i])
+                    children[i]
+                # delete min node
+                self.remove_from_root_list(m)
+            # update min
+            if m == m.right:
+                self.min_node = None
+                self.root_list = None
+            else:
+                # TODO iterate through the root list and find min
+                self.min_node = None
         return
 
     # This operation works by taking the node, decreasing the key and if the heap property becomes violated (the new key 
@@ -141,3 +156,8 @@ class FibonacciHeap:
             node.left = self.root_list
             self.root_list.right = node
             self.root_list.right.left = node
+
+    # Delete a node from the doubly linked root list.
+    def remove_from_root_list(self, node):
+        # TODO
+        return
