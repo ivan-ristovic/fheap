@@ -59,10 +59,6 @@ class FibonacciHeap:
     total_num_elements = 0
 
 
-    # Prints the node list
-    def print(self, head = None):
-        print([x.value for x in self.iterate()])
-
     # Iterate through the node list
     def iterate(self, head = None):
         if head is None:
@@ -221,3 +217,22 @@ class FibonacciHeap:
                 if x.value < min.value:
                     min = x
             return min
+
+        
+    # Prints the whole fheap.
+    def print(self, head = None):
+        if self.root_list is not None:
+            heaps = [x for x in self.iterate()]
+            for i in range(0, len(heaps)):
+                print('[', end='')
+                self.print_tree(heaps[i])
+                print(']')
+                
+    # Prints the node list
+    def print_tree(self, node):
+        if node is None:
+            return
+        print(node.value, end=' ')
+        if node.child is not None:
+            for child in self.iterate(node.child):
+                self.print_tree(child)
