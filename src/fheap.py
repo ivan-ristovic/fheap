@@ -95,6 +95,12 @@ class FibonacciHeap:
         node.left = node.right = node
         self.merge_with_root_list(node)
         # end temp impl
+        # update min node
+        if self.min_node != None:
+            if self.min_node.value > node.value:
+                self.min_node = node
+        else:
+            self.min_node = node
 
     # Extracting minumum element is done in a few steps. First we take the root containing the minimum element and remove 
     # it. Its children will become roots of new trees. If the number of children was d, it takes time O(d) to process all 
