@@ -12,7 +12,7 @@ print("Inserting elements... ", end='')
 f.insert(2)
 f.insert(3)
 f.insert(4)
-f.insert(5)
+to_decrease = f.insert(5)
 f.insert(1)
 print("Done.")
 
@@ -37,3 +37,10 @@ print(f.find_minimum())
 
 print("Minimum element in heap is: ")
 print(f.find_min_node().value)
+
+print("Decrease min test: ")
+f.decrease_key(to_decrease, 1)
+f.print()
+
+print("Minimum element in heap is: ")
+print(f.find_minimum())

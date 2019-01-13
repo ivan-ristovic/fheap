@@ -91,6 +91,7 @@ class FibonacciHeap:
         else:
             self.min_node = node
         self.total_num_elements += 1
+        return node
 
     # Extracting minumum element is done in a few steps. First we take the root containing the minimum element and remove 
     # it. Its children will become roots of new trees. If the number of children was d, it takes time O(d) to process all 
@@ -126,8 +127,16 @@ class FibonacciHeap:
     # changes by −(k − 1) + 1 = − k + 2. Combining these 2 changes, the potential changes by 2(−k + 2) + k = −k + 4. The 
     # actual time to perform the cutting was O(k), therefore (again with a sufficiently large choice of c) the amortized 
     # running time is constant.
-    def decrease_key(self):
-        # TODO
+    def decrease_key(self, node, v):
+        if v >= node.value:
+            raise ValueError("Cannot decrease key with a value greater than what it already is.")
+        node.value = v
+        p = node.parent
+        if p is not None and node.value < p.value:
+            self.cut(node, p)
+            self.cascading_cut(p)
+        if node.value < self.min_node.value:
+            self.min_node = node
         return
 
     # Delete operation can be implemented simply by decreasing the key of the element to be deleted to minus infinity, thus 
@@ -139,6 +148,22 @@ class FibonacciHeap:
 
 
     ##### Helper functions #####
+
+    def cut(self, node, parent):
+        self.remove_from_child_list(parent, node)
+        parent.deg -= 1
+        self.meld_into_root_list(node)
+        node.parent = None
+        node.mark = False
+
+    def cascading_cut(self, node):
+        p = node.parent
+        if p is not None:
+            if p.mark is False:
+                p.mark = True
+            else:
+                self.cut(node, p)
+                self.cascading_cut(p)
 
     # Merge a node with the doubly linked root list by adding it to second position in the list
     def meld_into_root_list(self, node):
@@ -164,6 +189,16 @@ class FibonacciHeap:
         node.left.right = node.right
         node.right.left = node.left
         return
+
+    # Removes a node from the doubly linked child list
+    def remove_from_child_list(self, parent, node):
+        if parent.child == parent.child.right:
+            parent.child = None
+        elif parent.child == node:
+            parent.child = node.right
+            node.right.parent = parent
+        node.left.right = node.right
+        node.right.left = node.left
     
     # Consolidates trees so that no root has same rank.
     def consolidate(self):
