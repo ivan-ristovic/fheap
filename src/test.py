@@ -48,3 +48,15 @@ print(f.find_minimum())
 print(f"Delete {to_delete.value}: ")
 f.delete(to_delete)
 f.print()
+
+
+f2 = FibonacciHeap()
+f2.insert(60)
+f2.insert(32)
+
+print("Heap 2: ")
+f2.print()
+
+print("Merging:")
+f.merge(f2)
+f.print()

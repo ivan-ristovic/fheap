@@ -145,6 +145,18 @@ class FibonacciHeap:
     def delete(self, node):
         self.decrease_key(node, -1)
         self.extract_minimum()
+        
+    # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
+    # This can be done in constant time and the potential does not change, leading again to constant amortized time.
+    def merge(self, fh):
+        if fh.min_node.value < self.min_node.value:
+            self.min_node = fh.min_node
+        self.total_num_elements += fh.total_num_elements
+        last = fh.root_list.left
+        fh.root_list.left = self.root_list.left
+        self.root_list.left.right = fh.root_list
+        self.root_list.left = last
+        self.root_list.left.right = self.root_list
 
 
     ##### Helper functions #####
@@ -214,12 +226,6 @@ class FibonacciHeap:
                 ranks_mapping[degree] = None
                 degree += 1
             ranks_mapping[degree] = node
-        return
-
-    # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
-    # This can be done in constant time and the potential does not change, leading again to constant amortized time.
-    def merge(self, other_heap):
-        # TODO
         return
 
     # Links two nodes together, putting the node with greater key as child of the other node
