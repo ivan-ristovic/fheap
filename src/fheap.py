@@ -79,16 +79,17 @@ class FibonacciHeap:
     # Insert works by creating a new heap with one element and doing merge. This takes constant time, and the potential 
     # increases by one, because the number of trees increases. The amortized cost is thus still constant. 
     def insert(self, value):
+        # Create a new singleton tree
         node = self.Node(value)
         node.left = node.right = node
-        self.merge_with_root_list(node)
-        # update min node
+        # Add to root list
+        self.meld_into_root_list(node)
+        # Update min pointer (if necessary)
         if self.min_node is not None:
             if self.min_node.value > node.value:
                 self.min_node = node
         else:
             self.min_node = node
-
         self.total_num_elements += 1
 
     # Extracting minumum element is done in a few steps. First we take the root containing the minimum element and remove 
@@ -98,25 +99,22 @@ class FibonacciHeap:
         m = self.min_node
         if m is None:
             raise ValueError('Fibonacci heap is empty, cannot extract mininum!')
+        if m.child is not None:
+            # Meld children into root_list
+            for child in self.iterate(m.child):
+                self.meld_into_root_list(child)
+                child.parent = None
+            # Delete min node
+            self.remove_from_root_list(m)
+        # Update min
+        if m == m.right:
+            self.min_node = None
+            self.root_list = None
         else:
-            if m.child is not None:
-                # attach children to root_list
-                children = [x for x in self.iterate(m.child)]
-                for i in range(0, len(children)):
-                    self.merge_with_root_list(children[i])
-                    children[i].parent = None
-                # delete min node
-                self.remove_from_root_list(m)
-            # update min
-            if m == m.right:
-                self.min_node = None
-                self.root_list = None
-            else:
-                self.min_node = self.find_min_node_from_scratch()            
-            # consolidate trees so that no root has same rank
-            self.consolidate()
-            
-            self.total_num_elements -= 1
+            self.min_node = self.find_min_node()            
+        # Consolidate trees so that no root has same rank
+        self.consolidate()
+        self.total_num_elements -= 1
         return m.value
 
     # This operation works by taking the node, decreasing the key and if the heap property becomes violated (the new key 
@@ -143,7 +141,7 @@ class FibonacciHeap:
     ##### Helper functions #####
 
     # Merge a node with the doubly linked root list by adding it to second position in the list
-    def merge_with_root_list(self, node):
+    def meld_into_root_list(self, node):
         if self.root_list is None:
             self.root_list = node
         else:
@@ -157,7 +155,7 @@ class FibonacciHeap:
         if self.root_list is None:
             raise ValueError('Fibonacci heap is empty, there is no node to remove!')
         if self.root_list == node:
-            # check if there's only one element in the list
+            # Check if there's only one element in the list
             if self.root_list == self.root_list.right:
                 self.root_list = None
                 return
@@ -174,14 +172,12 @@ class FibonacciHeap:
             degree = node.deg
             while ranks_mapping[degree] != None:
                 other = ranks_mapping[degree]
-                if node.value < other.value:
-                    temp = node
-                    node, other = other, temp
-                self.merge_heaps(other, node)
+                if node.value > other.value:
+                    node, other = other, node
+                self.merge_heaps(node, other)
                 ranks_mapping[degree] = None
                 degree += 1
             ranks_mapping[degree] = node
-
         return
 
     # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
@@ -194,7 +190,6 @@ class FibonacciHeap:
         node.deg += 1
         other.parent = node
         other.mark = False
-
         return
 
     # Merges a node with the doubly linked child list of the root node.
@@ -208,7 +203,7 @@ class FibonacciHeap:
             parent.child.right = node
 
     # Iterates through whole list and finds minimum node.
-    def find_min_node_from_scratch(self):
+    def find_min_node(self):
         if self.root_list is None:
             return None
         else:
@@ -217,16 +212,14 @@ class FibonacciHeap:
                 if x.value < min.value:
                     min = x
             return min
-
         
     # Prints the whole fheap.
     def print(self, head = None):
         if self.root_list is not None:
-            heaps = [x for x in self.iterate()]
-            for i in range(0, len(heaps)):
-                print('[', end='')
-                self.print_tree(heaps[i])
-                print(']')
+            for heap in self.iterate():
+                print('---')
+                self.print_tree(heap)
+                print()
                 
     # Prints the node list
     def print_tree(self, node):
@@ -234,5 +227,6 @@ class FibonacciHeap:
             return
         print(node.value, end=' ')
         if node.child is not None:
+            print()
             for child in self.iterate(node.child):
                 self.print_tree(child)

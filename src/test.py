@@ -19,11 +19,14 @@ print("Done.")
 print("Printing heap...")
 f.print()
 
+print("Find min node test:")
+print(f.find_min_node().value)
+
 print("Minimum element in heap is: ")
 print(f.find_minimum())
 
 print("Minimum element in heap is: ")
-print(f.find_min_node_from_scratch().value)
+print(f.find_min_node().value)
 
 print("Deleting minimum: ")
 print(f.extract_minimum())
