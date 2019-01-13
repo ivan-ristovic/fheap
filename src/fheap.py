@@ -142,9 +142,9 @@ class FibonacciHeap:
     # Delete operation can be implemented simply by decreasing the key of the element to be deleted to minus infinity, thus 
     # turning it into the minimum of the whole heap. Then we call extract minimum to remove it. The amortized running time 
     # of this operation is O(log n).
-    def delete(self, key):
-        # TODO
-        return
+    def delete(self, node):
+        self.decrease_key(node, -1)
+        self.extract_minimum()
 
 
     ##### Helper functions #####
@@ -261,6 +261,7 @@ class FibonacciHeap:
                 print('---')
                 self.print_tree(heap)
                 print()
+            print('---')
                 
     # Prints the node list
     def print_tree(self, node):
