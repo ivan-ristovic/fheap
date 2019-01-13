@@ -19,9 +19,6 @@ print("Done.")
 print("Printing heap...")
 f.print()
 
-print("Find min node test:")
-print(f.find_min_node().value)
-
 print("Minimum element in heap is: ")
 print(f.find_minimum())
 
@@ -34,3 +31,9 @@ print("Done!")
 
 print("Printing heap...")
 f.print()
+
+print("Minimum element in heap is: ")
+print(f.find_minimum())
+
+print("Minimum element in heap is: ")
+print(f.find_min_node().value)

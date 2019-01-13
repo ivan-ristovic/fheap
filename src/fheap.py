@@ -104,17 +104,17 @@ class FibonacciHeap:
             for child in self.iterate(m.child):
                 self.meld_into_root_list(child)
                 child.parent = None
-            # Delete min node
-            self.remove_from_root_list(m)
+        # Delete min node
+        self.remove_from_root_list(m)
+        self.total_num_elements -= 1
+        # Consolidate trees so that no root has same rank
+        self.consolidate()
         # Update min
         if m == m.right:
             self.min_node = None
             self.root_list = None
         else:
-            self.min_node = self.find_min_node()            
-        # Consolidate trees so that no root has same rank
-        self.consolidate()
-        self.total_num_elements -= 1
+            self.min_node = self.find_min_node()
         return m.value
 
     # This operation works by taking the node, decreasing the key and if the heap property becomes violated (the new key 
@@ -174,7 +174,7 @@ class FibonacciHeap:
                 other = ranks_mapping[degree]
                 if node.value > other.value:
                     node, other = other, node
-                self.merge_heaps(node, other)
+                self.merge_nodes(node, other)
                 ranks_mapping[degree] = None
                 degree += 1
             ranks_mapping[degree] = node
@@ -182,7 +182,7 @@ class FibonacciHeap:
 
     # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
     # This can be done in constant time and the potential does not change, leading again to constant amortized time.
-    def merge_heaps(self, node, other):
+    def merge_nodes(self, node, other):
         self.remove_from_root_list(other)
         other.left = other.right = other
         # Adding other node to child list of the frst one.
