@@ -168,7 +168,8 @@ class FibonacciHeap:
     # Consolidates trees so that no root has same rank.
     def consolidate(self):
         ranks_mapping = [None] * self.total_num_elements
-        for node in self.iterate(self.root_list):
+        nodes = [x for x in self.iterate(self.root_list)]
+        for node in nodes:
             degree = node.deg
             while ranks_mapping[degree] != None:
                 other = ranks_mapping[degree]
@@ -182,6 +183,11 @@ class FibonacciHeap:
 
     # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
     # This can be done in constant time and the potential does not change, leading again to constant amortized time.
+    def merge(self, other_heap):
+        # TODO
+        return
+
+    # Links two nodes together, putting the node with greater key as child of the other node
     def merge_nodes(self, node, other):
         self.remove_from_root_list(other)
         other.left = other.right = other
