@@ -28,12 +28,6 @@ following ![slides](https://www.cs.princeton.edu/~wayne/teaching/fibonacci-heap.
 | `insert(v)` | O(log n) | O(1) |
 | `decrease_key(k, v)` | O(log n) | O(1) |
 | `merge(h)` | O(n) | O(1) |
----
-- `find_min()` runs in O(1) time
-- `extract_min()` runs in O(log n) time
-- `insert(k)` runs in O(1) time
-- `merge(h)` runs in O(1) time
-- `decrease_key(x, k)` runs in O(1) time
 
 
 ## Usage
