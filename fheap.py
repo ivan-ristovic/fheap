@@ -1,31 +1,4 @@
-﻿'''
-In computer science, a Fibonacci heap is a data structure for priority queue operations, 
-consisting of a collection of heap-ordered trees. It has a better amortized running time 
-than many other priority queue data structures including the binary heap and binomial heap. 
-Michael L. Fredman and Robert E. Tarjan developed Fibonacci heaps in 1984 and published 
-them in a scientific journal in 1987. Fibonacci heaps are named after the Fibonacci numbers, 
-which are used in their running time analysis.
-
-For the Fibonacci heap, the find-minimum operation takes constant (O(1)) amortized time. The 
-insert and decrease key operations also work in constant amortized time. Deleting an element 
-(most often used in the special case of deleting the minimum element) works in O(log n) 
-amortized time, where n is the size of the heap. This means that starting from an empty data 
-structure, any sequence of a insert and decrease key operations and b delete operations would 
-take O(a + b log n) worst case time, where n is the maximum heap size. In a binary or binomial 
-heap such a sequence of operations would take O((a + b) log n) time. A Fibonacci heap is thus 
-better than a binary or binomial heap when b is smaller than a by a non-constant factor. It is 
-also possible to merge two Fibonacci heaps in constant amortized time, improving on the 
-logarithmic merge time of a binomial heap, and improving on binary heaps which cannot handle 
-merges efficiently.
-
-Using Fibonacci heaps for priority queues improves the asymptotic running time of important 
-algorithms, such as Dijkstra's algorithm for computing the shortest path between two nodes in 
-a graph, compared to the same algorithm using other slower priority queue data structures. 
-
-Source: https://en.wikipedia.org/wiki/Fibonacci_heap
-'''
-
-# To allow fast deletion and concatenation, the roots of all trees are linked using a circular, 
+﻿# To allow fast deletion and concatenation, the roots of all trees are linked using a circular, 
 # doubly linked list. The children of each node are also linked using such a list. For each node, 
 # we maintain its number of children and whether the node is marked. Moreover, we maintain a 
 # pointer to the root containing the minimum key.
@@ -149,6 +122,8 @@ class FibonacciHeap:
     # Merging two heaps is implemented simply by concatenating the lists of tree roots of the two heaps. 
     # This can be done in constant time and the potential does not change, leading again to constant amortized time.
     def merge(self, fh):
+        if fh.total_num_elements == 0:
+            return
         if fh.min_node.value < self.min_node.value:
             self.min_node = fh.min_node
         self.total_num_elements += fh.total_num_elements
