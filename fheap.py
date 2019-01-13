@@ -39,6 +39,8 @@ class FibonacciHeap:
         current = head
         while True:
             yield current
+            if current is None:
+                break
             current = current.right
             if current == head:
                 break
@@ -75,9 +77,10 @@ class FibonacciHeap:
             raise ValueError('Fibonacci heap is empty, cannot extract mininum!')
         if m.child is not None:
             # Meld children into root_list
-            for child in self.iterate(m.child):
-                self.meld_into_root_list(child)
-                child.parent = None
+            children = [x for x in self.iterate(m.child)]
+            for i in range(0, len(children)):
+                self.meld_into_root_list(children[i])
+                children[i].parent = None
         # Delete min node
         self.remove_from_root_list(m)
         self.total_num_elements -= 1
@@ -189,6 +192,8 @@ class FibonacciHeap:
     
     # Consolidates trees so that no root has same rank.
     def consolidate(self):
+        if self.root_list is None:
+            return
         ranks_mapping = [None] * self.total_num_elements
         nodes = [x for x in self.iterate(self.root_list)]
         for node in nodes:
