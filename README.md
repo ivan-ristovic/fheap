@@ -32,7 +32,7 @@ following ![slides](https://www.cs.princeton.edu/~wayne/teaching/fibonacci-heap.
 
 ## Usage
 
-See the ![](fheap_test.py) for more detailed examples.
+See the ![test file](fheap_test.py) for more detailed examples.
 
 ```python
 f = FibonacciHeap()
