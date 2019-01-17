@@ -11,6 +11,31 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.0,0,0.82}
+\lstdefinestyle{mystyle}{
+    numbers=left,
+    numberstyle=\scriptsize,
+    numbersep=8pt,
+    commentstyle=\color{codegray},
+    keywordstyle=\color{codegreen},
+    numberstyle=\tiny\color{codeblue},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    xleftmargin=3em,
+    framexleftmargin=1.5em
+}
+\lstset{style=mystyle}
 
 
 \theoremstyle{plain}
@@ -30,7 +55,7 @@
 \maketitle
 
 \abstract{
-    test \cite{Book} \cite{Slides}
+    Fibona\v{c}ijev hip je struktura podataka osmi\v{s}ljena sa ciljem da pobolj\v{s}a vreme potrebno za operacije nad hipovima. Pru\v{z}aju bolje amortizovano vreme izvr\v{s}avanja nego ve\'c{}ina drugih prioritetnih redova, uklju\v{c}uju\'c{}i binarni i binomni hip. Fibona\v{c}ijev hip je osmi\v{s}ljen od strane Fredman-a i Tarjan-a 1984. godine i publikovan 1987. Ime je dobio po Fibona\v{c}ijevim brojevima, koji se koriste u analizi slo\v{z}enosti operacija. Koriste\'c{}i Fibona\v{c}ijev hip, mogu\'c{}e je unaprediti vremena izvr\v{s}avanja velikog broja poznatih algoritama kao \v{s}to je Dijsktrin algoritam. Pru\v{z}amo implementaciju Fibona\v{c}ijevog hipa u programskom jeziku \emph{Python}, sa interfejsom jednostavnim za upotrebu i testiranje. Takodje u ovom radu testiramo vreme izvr\v{s}avanja operacije \emph{decrease-key} kako bismo eksperimentalno pokazali amortizovano vreme izvr\v{s}avanja ove operacije od $O(\log{n})$.
 }
 
 \tableofcontents
@@ -40,6 +65,7 @@
 \section{Uvod}
 \label{sec:Uvod}
 
+test \cite{Book} \cite{Slides}
 
 
 
