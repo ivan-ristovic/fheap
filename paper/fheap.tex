@@ -12,6 +12,8 @@
 \usepackage{amssymb}
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
 \usepackage{listings}
+\usepackage{float}
+\usepackage[font=small,labelfont=bf]{caption}
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codeblue}{rgb}{0.0,0,0.82}
@@ -55,7 +57,7 @@
 \maketitle
 
 \abstract{
-    Fibona\v{c}ijev hip je struktura podataka osmi\v{s}ljena sa ciljem da pobolj\v{s}a vreme potrebno za operacije nad hipovima. Pru\v{z}aju bolje amortizovano vreme izvr\v{s}avanja nego ve\'c{}ina drugih prioritetnih redova, uklju\v{c}uju\'c{}i binarni i binomni hip. Fibona\v{c}ijev hip je osmi\v{s}ljen od strane Fredman-a i Tarjan-a 1984. godine i publikovan 1987. Ime je dobio po Fibona\v{c}ijevim brojevima, koji se koriste u analizi slo\v{z}enosti operacija. Koriste\'c{}i Fibona\v{c}ijev hip, mogu\'c{}e je unaprediti vremena izvr\v{s}avanja velikog broja poznatih algoritama kao \v{s}to je Dijsktrin algoritam. Pru\v{z}amo implementaciju Fibona\v{c}ijevog hipa u programskom jeziku \emph{Python}, sa interfejsom jednostavnim za upotrebu i testiranje. Takodje u ovom radu testiramo vreme izvr\v{s}avanja operacije \emph{decrease-key} kako bismo eksperimentalno pokazali amortizovano vreme izvr\v{s}avanja ove operacije od $O(\log{n})$.
+    Fibona\v{c}ijev hip je struktura podataka osmi\v{s}ljena sa ciljem da pobolj\v{s}a vreme potrebno za operacije nad hipovima. Pru\v{z}aju bolje amortizovano vreme izvr\v{s}avanja nego ve\'c{}ina drugih prioritetnih redova, uklju\v{c}uju\'c{}i binarni i binomni hip. Fibona\v{c}ijev hip je osmi\v{s}ljen 1984. godine i publikovan 1987. Ime je dobio po Fibona\v{c}ijevim brojevima, koji se koriste u analizi slo\v{z}enosti operacija. Koriste\'c{}i Fibona\v{c}ijev hip, mogu\'c{}e je unaprediti vremena izvr\v{s}avanja velikog broja poznatih algoritama kao \v{s}to je Dijsktrin algoritam. Pru\v{z}amo implementaciju Fibona\v{c}ijevog hipa u programskom jeziku \emph{Python}, sa interfejsom jednostavnim za upotrebu i testiranje. Takodje u ovom radu testiramo vreme izvr\v{s}avanja operacije \emph{decrease-key} kako bismo eksperimentalno pokazali konstantno amortizovano vreme izvr\v{s}avanja ove operacije.
 }
 
 \tableofcontents
@@ -65,8 +67,36 @@
 \section{Uvod}
 \label{sec:Uvod}
 
-test \cite{Book} \cite{Slides}
+\emph{Binarni hip} (eng. \emph{Heap}) \cite{Heap} je binarno stablo koje zadovoljava uslov da svaki \v{c}vor u stablu ima vrednost klju\v{c}a ve\'c{}u (tj. manju) od oba svoja sina. Takav hip se \v{c}esto naziva \emph{max-hip} (tj. \emph{min-hip}). Jasno je da \'c{}e se u hipu maksimum (tj. minimum) alaziti u korenu stabla, \v{s}to garantuje konstantni upit. Svaki hip podr\v{z}ava slede\'c{}e operacije \footnote{Pretpostavlja se da se radi o min-hipu, analogno va\v{z}i i za max-hip.}:
+\begin{itemize}
+    \item \texttt{find\_min} - vra\'c{}a vrednost klju\v{c}a korena hipa.
+    \item \texttt{extract\_min} - uklanja koren hipa.
+    \item \texttt{insert(v)} - unosi novi \v{c}vor sa vredno\v{s}\'c{}u klju\v{c}a $v$.
+    \item \texttt{decrease\_key(k,v)} - spu\v{s}ta vrednost klju\v{c}a $k$ na vrednost $v$.
+    \item \texttt{merge(h)} - unija sa novim hipom $h$.
+\end{itemize}
 
+\emph{Fibona\v{c}ijev hip} \cite{Book} je osmi\v{s}ljen 1984. od strane Fredman-a i Tarjan-a sa ciljem da se pobolj\v{s}a vreme izvr\v{s}avanja Dijkstrinog algoritma za najkra\'c{}i put. Originalni Dijsktrin algoritam koji koristi binarni hip radi u vremenskoj slo\v{z}enosti $O(|E|\log{|V|})$. Kori\v{s}\'c{}enjem Fibona\v{c}ijevog hipa umesto binarnog hipa, vremensku slo\v{z}enost Dijsktrinog algoritma je mogu\'c{}e pobolj\v{s}ati do $O(|E| + |V|\log{|V|})$. Poredjenje vremena izvr\v{s}avanja u odnosu na binarni hip se mo\v{z}e videti na slede\'c{}oj tabeli:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+    \hline
+    Operacija                   & Binarni hip  & Fibona\v{c}ijev hip \\
+    \hline
+    \texttt{find\_min}          & $O(1)$       & $O(1)$              \\
+    \texttt{extract\_min}       & $O(\log{n})$ & $O(\log{n})$        \\
+    \texttt{insert(v)}          & $O(\log{n})$ & $O(1)$              \\
+    \texttt{decrease\_key(k,v)} & $O(\log{n})$ & $O(1)$ \footnote{Amortizovano vreme} \\
+    \texttt{merge(h)}           & $O(n)$       & $O(1)$              \\
+    \hline
+\end{tabular}
+\label{tbl:fig1}
+\caption{Poredjenje vremena izvr\v{s}avanja operacija izmedju Fibona\v{c}ijevog i binarnog hipa.}
+\end{table}
+
+
+\cite{Slides}
 
 
 
