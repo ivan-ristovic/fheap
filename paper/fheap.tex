@@ -128,15 +128,36 @@ Kako bismo analizirali slo\v{z}enosti operacija, potrebno je da prvo defini\v{s}
     $$\Phi(H) = trees(H) + 2 \cdot marks(H)$$
 \end{defn}
 
+
 \section{Opis operacija}
 \label{sec:Operacije}
 
-\subsection{findmin}
+\subsection{\texttt{find\_min}}
 \label{subsec:findmin}
-\subsection{extractmin}
-\label{subsec:extractmin}
-\subsection{insert}
+
+Pronala\v{z}enje vrednosti minimuma se trivijalno odvija jer imamo pokaziva\v{c} na \v{c}vor koji sadr\v{z}i minimalni element. Slo\v{z}enost ove operacije je, kao i kod obi\v{c}nog binarnog hipa, $O(1)$.
+
+\subsection{\texttt{insert}}
 \label{subsec:insert}
+
+Operacija umetanja novog \v{c}vora se odvija u dva dela. Neka je $x$ \v{c}vor koji \v{z}elimo da ubacimo u hip. Prvo se kreira novo stablo sa $x$ kao korenom. To stablo (koje se sastoji samo od \v{c}vora $x$) se ubacuje u listu korena Fibona\v{c}ijevog hipa. Eventualno je potrebno a\v{z}urirati pokaziva\v{c} na najmanji element ukoliko je klju\v{c} \v{c}vora $x$ manji od minimuma hipa. Vizuelni prikaz operacije umetanja se mo\v{z}e videti na slici \ref{fig2}.
+
+Slo\v{z}enost operacije umetanja je stoga $O(1)$, dok je promena u potencijalu $+1$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{resources/fig2a.PNG}\\
+    \includegraphics[scale=0.7]{resources/fig2b.PNG}
+    \caption{Vizuelizacija operacije umetanja.}
+    \label{fig2}
+\end{figure}
+
+
+\subsection{\texttt{extract\_min}}
+\label{subsec:extractmin}
+
+
+
 \subsection{decreasekey}
 \label{subsec:decreasekey}
 \subsection{merge}
