@@ -1,5 +1,7 @@
 # fheap
-Fibonacci Heap implementation in Python for the course: Algorithms Construction and Analysis 2
+Fibonacci Heap implementation in Python for the course: Algorithms Construction and Analysis 2. 
+
+The paper we wrote (in Serbian) can be read ![here](papers/fheap.pdf).
 
 
 ## About Fibonacci heaps
