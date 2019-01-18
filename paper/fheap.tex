@@ -10,6 +10,8 @@
 \usepackage[unicode]{hyperref}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
 \usepackage{listings}
 \usepackage{float}
@@ -156,11 +158,46 @@ Slo\v{z}enost operacije umetanja je stoga $O(1)$, dok je promena u potencijalu $
 \subsection{\texttt{extract\_min}}
 \label{subsec:extractmin}
 
+Da bismo implementirali operaciju brisanja minumuma, potrebno je prvo da defini\v{s}emo operaciju \emph{spajanja} (eng. \emph{linking}) dva hipa. Naime, porede se koreni dva hipa i kao sin manjeg se dodaje ve\'c{}i (videti sliku \ref{fig3}).
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{resources/fig3.PNG}
+    \caption{Vizuelizacija spajanja stabala.}
+    \label{fig3}
+\end{figure}
 
-\subsection{decreasekey}
+Brisanje se odvija u dva koraka. Prvo se \v{c}vor koji je minimalan izbaci iz liste korenova a njegova deca se ubacuju u listu korenova (videti sliku \ref{fig4a}) i a\v{z}urira se minimum hipa. Zatim se radi \emph{konsolidacija} hipa. Naime, potrebno je pro\'c{}i kroz listu korenova i postarati se da nijedna dva korena nemaju isti rank (videti sliku \ref{fig4b}). Ukoliko dva korena imaju isti rank, njihova stabla se spajaju operacijom spajanja.
+
+Slo\v{z}enost operacije umetanja se analizira tako \v{s}to se analiziraju operacije od kojih se sa\v{c}injena:
+\begin{itemize}
+    \item Ubacivanje sinova minimalnog \v{c}vora u listu korena je slo\v{z}enosti $O(rank(H))$.
+    \item A\v{z}uriranje vrednosti minimuma je slo\v{z}enosti $O(rank(H)) + O(trees(H))$.
+    \item Konsolidacija hipa je slo\v{z}enosti $O(rank(H)) + O(trees(H))$.
+\end{itemize}
+Sve ukupno, $O(rank(H)) + O(trees(H))$.
+
+Promena u potencijalu je $O(rank(H) - trees(H))$, \v{s}to proizilazi iz \v{c}injenice da je $trees(H') = trees(H) + 1$ jer nijedna dva \v{c}vora nemaju isti rank posle konsolidacije. Stoga je $\delta\Phi(H) = rank(H) + 1 - trees(H)$. Iz svega ovoga zaklju\v{c}ujemo da je amortizovana cena operacije brisanja minimuma $O(rank(H))$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{resources/fig4a.PNG}\\
+    \includegraphics[scale=0.7]{resources/fig4b.PNG}
+    \caption{Vizuelizacija prvog koraka operacije brisanja minimuma.}
+    \label{fig4a}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{resources/fig4c.PNG}\\
+    \includegraphics[scale=0.7]{resources/fig4d.PNG}
+    \caption{Vizuelizacija drugog koraka operacije brisanja minimuma.}
+    \label{fig4b}
+\end{figure}
+
+\subsection{\texttt{decrease\_key}}
 \label{subsec:decreasekey}
-\subsection{merge}
+
+\subsection{\texttt{merge}}
 \label{subsec:merge}
 
 
