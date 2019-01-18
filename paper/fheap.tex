@@ -67,7 +67,7 @@
 \section{Uvod}
 \label{sec:Uvod}
 
-\emph{Binarni hip} (eng. \emph{Heap}) \cite{Heap} je binarno stablo koje zadovoljava uslov da svaki \v{c}vor u stablu ima vrednost klju\v{c}a ve\'c{}u (tj. manju) od oba svoja sina. Takav hip se \v{c}esto naziva \emph{max-hip} (tj. \emph{min-hip}). Jasno je da \'c{}e se u hipu maksimum (tj. minimum) alaziti u korenu stabla, \v{s}to garantuje konstantni upit. Svaki hip podr\v{z}ava slede\'c{}e operacije \footnote{Pretpostavlja se da se radi o min-hipu, analogno va\v{z}i i za max-hip.}:
+\emph{Binarni hip} (eng. \emph{Binary heap}) \cite{Heap} je binarno stablo koje zadovoljava uslov da svaki \v{c}vor u stablu ima vrednost klju\v{c}a ve\'c{}u (tj. manju) od oba svoja sina. Takav hip se \v{c}esto naziva \emph{max-hip} (tj. \emph{min-hip}). Jasno je da \'c{}e se u hipu maksimum (tj. minimum) alaziti u korenu stabla, \v{s}to garantuje konstantni upit. Svaki hip podr\v{z}ava slede\'c{}e operacije \footnote{Pretpostavlja se da se radi o min-hipu, analogno va\v{z}i i za max-hip.}:
 \begin{itemize}
     \item \texttt{find\_min} - vra\'c{}a vrednost klju\v{c}a korena hipa.
     \item \texttt{extract\_min} - uklanja koren hipa.
@@ -95,12 +95,41 @@
 \caption{Poredjenje vremena izvr\v{s}avanja operacija izmedju Fibona\v{c}ijevog i binarnog hipa.}
 \end{table}
 
+U nastavku opisujemo detaljnije strukturu (odeljak \ref{sec:Struktura}) i operacije (odeljak \ref{sec:Operacije}). U daljem tekstu \'c{}emo pretpostaviti da se radi o min-hipu, analogno va\v{z}i i za max-hip.
+
 
 \section{Opis strukture}
 \label{sec:Struktura}
 
+Fibona\v{c}ijev hip je skup stabala uredjenih po uslovu hipa (videti sliku \ref{fig1}). Koreni tih hipova se \v{c}uvaju u dvostruko povezanoj listi radi lak\v{s}eg ubacivanja i izbacivanja. Takodje se \v{c}uva pokaziva\v{c} na najmanji element, kako bi se upit mogao izvr\v{s}iti u konstantnom vremenu. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{resources/fig1.PNG}
+    \caption{Vizuelizacija strukture Fibona\v{c}ijevog hipa.}
+    \label{fig1}
+\end{figure}
+
+Dodatno, svaki \v{c}vor u sebi sadr\v{z}i podatak da li je ozna\v{c}en ili ne (razlog za\v{s}to \'c{}e biti obja\v{s}njen kasnije). Po\v{s}to hipovi koji \v{c}ine skup ne moraju biti binarni, potreban je neki mehanizam \emph{ispravljanja} hipova \cite{Slides}.
+
+Uvodimo slede\'c{}e pojmove:
+\begin{itemize}
+    \item $n$ - ukupan broj \v{c}vorova u Fibona\v{c}ijevom hipu.
+    \item $rank(x)$ - broj potomaka \v{c}vora $x$.
+    \item $rank(H)$ - maksimalni rank bilo kog \v{c}vora u Fibona\v{c}ijevom hipu H.
+    \item $trees(H)$ - broj hipova u Fibona\v{c}ijevom hipu H.
+    \item $marks(H)$ - broj ozna\v{c}enih \v{c}vorova u Fibona\v{c}ijevom hipu H.
+\end{itemize}
+
+Kako bismo analizirali slo\v{z}enosti operacija, potrebno je da prvo defini\v{s}emo \emph{potencijal} Fibona\v{c}ijevog hipa:
+
+\begin{defn}
+    \emph{Potencijal} Fibona\v{c}ijevog hipa $H$, u oznaci $\Phi(H)$ se defini\v{s}e kao:
+    $$\Phi(H) = trees(H) + 2 \cdot marks(H)$$
+\end{defn}
+
 \section{Opis operacija}
-\label{sec:Struktura}
+\label{sec:Operacije}
 
 \subsection{findmin}
 \label{subsec:findmin}
@@ -113,8 +142,6 @@
 \subsection{merge}
 \label{subsec:merge}
 
-
-\cite{Slides}
 
 
 
