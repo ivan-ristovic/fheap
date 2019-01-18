@@ -194,14 +194,39 @@ Promena u potencijalu je $O(rank(H) - trees(H))$, \v{s}to proizilazi iz \v{c}inj
     \label{fig4b}
 \end{figure}
 
+
 \subsection{\texttt{decrease\_key}}
 \label{subsec:decreasekey}
+
+Operacija spu\v{s}tanja klju\v{c}a \v{c}vora $x$ do vrednosti $v$ (eng. \emph{decrease key}) kao rezultat menja vrednost klju\v{c}a \v{c}vora $x$ u $v$ (pretpostavlja se da je $v$  manje od vrednosti klju\v{c}a \v{c}vora $x$). S obzirom da ova operacija mo\v{z}e da naru\v{s}i uslov hipa, potrebno je preurediti hip kako bi se uslov odr\v{z]ao}.
+
+Operacija spu\v{s}tanja se radi u vi\v{s}e koraka. Intuitivno, ukoliko je uslov hipa ispunjen posle spuv{s}tanja vrednosti klju\v{c}a \v{c}vora $x$, onda je posao gotov. U protivnom je potrebno \emph{ise\'c{}i} podstablo \v{c}iji je koren \v{c}vor $x$ i ubaciti ga u skup hipova. Kako bi se odr\v{z}ala |emph{ispravljenost} hipova, kad jednom \v{c}voru ise\v{c}emo drugog sina, se\v{c}emo ga kompletno i ubacujemo u listu korena. Preciznije (videti sliku \ref{fig5}):
+\begin{itemize}
+    \item Spustiti vrednost klju\v{c}a $x$.
+    \item Ise\'c{}i drvo \v{c}iji je $x$ koren, dodati u listu korenova i skloniti oznaku (ukoliko je bio ozna\v{c}en).
+    \item Ako je roditelj $p$ \v{c}vora $x$ neozna\v{c}en (nije do sada bio ise\v{c}en), ozna\v{c}i ga.
+    \item U protivnom, iseci $p$, dodaj ga u listu korenova i skloni oznaku.
+    \item Rekurzivno ponovi prethodno za sve roditelje kojima su dvaput se\v{c}eni sinovi. 
+\end{itemize}
+
+Slo\v{z}enost operacije spu\v{s}tanja klju\v{c}a je $O(c)$, naime potrebno je $O(1)$ vreme za izmenu vrednosti klju\v{c}a i $O(1)$ vreme za svako od $c$ se\v{c}enja, uz dodavanje u listu korenova. Promena potencijala je $O(1) - c$, pa je amortizovana slo\v{z}enost $O(1)$.
+
+Operacija brisanja \v{c}vora $x$ se mo\v{z}e implementirati korist\'c{}i ve\'c{} opisane operacije: prvo \texttt{decrease\_key(}$x$, $-\infty$\texttt{)}  (kako bi se garantovalo da \'c{}e on onda postati minimum hipa) zatim \texttt{extract\_min} (kako bi se taj novonastali minimum uklonio).
 
 \subsection{\texttt{merge}}
 \label{subsec:merge}
 
+Unija dva Fibona\v{c}ijeva hipa se trivijalno izvr\v{s}ava spajanjem njihovih dvostruko povezanih listi korenova. Minimum rezultata je manji od dva minimuma hipova koji se spajaju.
 
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{resources/fig5a.PNG}
+    \includegraphics[scale=0.6]{resources/fig5b.PNG}\\
+    \includegraphics[scale=0.6]{resources/fig5c.PNG}
+    \includegraphics[scale=0.6]{resources/fig5d.PNG}
+    \caption{Vizuelizacija operacije spu\v{s}tanja klju\v{c}a.}
+    \label{fig5}
+\end{figure}
 
 \section{Zaključak}
 \label{sec:Zakljucak}
