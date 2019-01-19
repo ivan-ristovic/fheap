@@ -1,26 +1,33 @@
-from heapq import *
 from random import randint
 import time
 from fheap import FibonacciHeap
+from binheap import BinHeap
 
 
 f = FibonacciHeap()
-h = []
-n = 100
+bh = BinHeap()
+n = 1000
+
+print(f"Inserting {n} numbers into heaps... ", end='')
 for i in range(0, n):
     r = randint(1, 1000)
     f.insert(r)
-    heappush(h, r)
+    bh.insert(n);
+print(f"Done!")
 
+print(f"Running extract_min... ")
 
-# heapq
+#binheap
 start_time = time.time()
-while h:
-    heappop(h)
-print(f"heapq: {time.time() - start_time}s")
+while bh.current_size > 0:
+    bh.extract_minimum()
+print(f"\tbinheap: {time.time() - start_time}s")
 
-# fheap 
+# fheap
 start_time = time.time()
 while f.total_num_elements > 0:
     f.extract_minimum()
-print(f"fheap: {time.time() - start_time}s")
+print(f"\tfheap: {time.time() - start_time}s")
+
+
+print(f"Done running extract_min banchmark!")

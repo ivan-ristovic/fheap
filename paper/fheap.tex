@@ -200,9 +200,9 @@ Promena u potencijalu je $O(rank(H) - trees(H))$, \v{s}to proizilazi iz \v{c}inj
 \subsection{\texttt{decrease\_key}}
 \label{subsec:decreasekey}
 
-Operacija spu\v{s}tanja klju\v{c}a \v{c}vora $x$ do vrednosti $v$ (eng. \emph{decrease key}) kao rezultat menja vrednost klju\v{c}a \v{c}vora $x$ u $v$ (pretpostavlja se da je $v$  manje od vrednosti klju\v{c}a \v{c}vora $x$). S obzirom da ova operacija mo\v{z}e da naru\v{s}i uslov hipa, potrebno je preurediti hip kako bi se uslov odr\v{z]ao}.
+Operacija spu\v{s}tanja klju\v{c}a \v{c}vora $x$ do vrednosti $v$ (eng. \emph{decrease key}) kao rezultat menja vrednost klju\v{c}a \v{c}vora $x$ u $v$ (pretpostavlja se da je $v$  manje od vrednosti klju\v{c}a \v{c}vora $x$). S obzirom da ova operacija mo\v{z}e da naru\v{s}i uslov hipa, potrebno je preurediti hip kako bi se uslov odr\v{zao}.
 
-Operacija spu\v{s}tanja se radi u vi\v{s}e koraka. Intuitivno, ukoliko je uslov hipa ispunjen posle spuv{s}tanja vrednosti klju\v{c}a \v{c}vora $x$, onda je posao gotov. U protivnom je potrebno \emph{ise\'c{}i} podstablo \v{c}iji je koren \v{c}vor $x$ i ubaciti ga u skup hipova. Kako bi se odr\v{z}ala |emph{ispravljenost} hipova, kad jednom \v{c}voru ise\v{c}emo drugog sina, se\v{c}emo ga kompletno i ubacujemo u listu korena. Preciznije (videti sliku \ref{fig5}):
+Operacija spu\v{s}tanja se radi u vi\v{s}e koraka. Intuitivno, ukoliko je uslov hipa ispunjen posle spuv{s}tanja vrednosti klju\v{c}a \v{c}vora $x$, onda je posao gotov. U protivnom je potrebno \emph{ise\'c{}i} podstablo \v{c}iji je koren \v{c}vor $x$ i ubaciti ga u skup hipova. Kako bi se odr\v{z}ala \emph{ispravljenost} hipova, kad jednom \v{c}voru ise\v{c}emo drugog sina, se\v{c}emo ga kompletno i ubacujemo u listu korena. Preciznije (videti sliku \ref{fig5}):
 \begin{itemize}
     \item Spustiti vrednost klju\v{c}a $x$.
     \item Ise\'c{}i drvo \v{c}iji je $x$ koren, dodati u listu korenova i skloniti oznaku (ukoliko je bio ozna\v{c}en).
@@ -255,6 +255,15 @@ $$rank(H) \leq \log_{\phi}{n} $$
 
 \section{Poredjenje efikasnosti}
 \label{sec:Exp}
+Kako bismo ispitali efikasnost na\v{s}e implementacije Fibona\v{c}ijevog hipa, implementirali smo i standardan binarni hip. U narednim podsekcijama su prikazani rezultati poredjenja efikasnosti ova dva hipa.
+
+\subsection{\texttt{extract_min}}
+\label{subsec:ExpExtractMin}
+
+
+\subsection{\texttt{decrease_key}}
+\label{subsec:ExpDecreaseKey}
+
 
 \addcontentsline{toc}{section}{Literatura}
 \appendix
