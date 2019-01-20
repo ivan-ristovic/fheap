@@ -271,33 +271,36 @@ Poredjenje efikasnosti operacije \texttt{decrease\_key} vr\v{s}imo na slede\'{c}
     \item $N$ puta izvr\v{s}imo operaciju na oba hipa i merimo njihovo ukupno vreme izvr\v{s}avanja.
 \end{itemize}
 
-\subsection{\texttt{extract\_min} benchmark}
-\label{subsec:ExpExtractMin}
-$n = 100$
-binheap: \t0.003965616226196289s
-fheap: \t0.02899909019470215s
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        $n$    & Binarni hip           & Fibona\v{c}ijev hip  \\
+        \hline
+        100    & 0.003965616226196289s & 0.02899909019470215s \\
+        1000   & 0.05807352066040039s  & 0.2644772529602051s  \\
+        10000  & 0.6527743339538574s   & 3.014829635620117s   \\
+        \hline
+    \end{tabular}
+\label{tbl:fig1}
+\caption{\texttt{extract\_min} benchmark}
+\end{table}
 
-$n = 1000$
-binheap: 0.05807352066040039s
-fheap: 0.2644772529602051s
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        $n$    & Binarni hip            & Fibona\v{c}ijev hip    \\
+        \hline
+        100    & 0.0010502338409423828s & 0.0010502338409423828s \\
+        1000   & 0.01744818687438965s   & 0.02191758155822754s   \\
+        10000  & 0.2323460578918457s    & 0.293259859085083s     \\
+        \hline
+    \end{tabular}
+\label{tbl:fig1}
+\caption{\texttt{decrease\_key} benchmark}
+\end{table}
 
-$n = 10000$
-binheap: 0.6527743339538574s
-fheap: 3.014829635620117s
-
-\subsection{\texttt{decrease\_key} benchmark}
-\label{subsec:ExpDecreaseKey}
-$n = 100$
-binheap: 0.0010502338409423828s
-fheap: 0.0010502338409423828s
-
-$n = 1000$
-binheap: 0.01744818687438965s
-fheap: 0.02191758155822754s
-
-$n = 10000$
-binheap: 0.2323460578918457s
-fheap: 0.293259859085083s
 
 \addcontentsline{toc}{section}{Literatura}
 \appendix
