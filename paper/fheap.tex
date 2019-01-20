@@ -179,7 +179,7 @@ Slo\v{z}enost operacije umetanja se analizira tako \v{s}to se analiziraju operac
 \end{itemize}
 Sve ukupno, $O(rank(H)) + O(trees(H))$.
 
-Promena u potencijalu (ozna\v{c}ena sa $\delta\Phi(H)) je $O(rank(H) - trees(H))$. Ovo proizilazi iz \v{c}injenice da je $trees(H') = trees(H) + 1$ jer nijedna dva \v{c}vora nemaju isti rank posle konsolidacije. Stoga je $\delta\Phi(H) = rank(H) + 1 - trees(H)$. Iz svega ovoga zaklju\v{c}ujemo da je amortizovana cena operacije brisanja minimuma $O(rank(H))$.
+Promena u potencijalu (ozna\v{c}ena sa $\delta\Phi(H))$) je $O(rank(H) - trees(H))$. Ovo proizilazi iz \v{c}injenice da je $trees(H') = trees(H) + 1$ jer nijedna dva \v{c}vora nemaju isti rank posle konsolidacije. Stoga je $\delta\Phi(H) = rank(H) + 1 - trees(H)$. Iz svega ovoga zaklju\v{c}ujemo da je amortizovana cena operacije brisanja minimuma $O(rank(H))$.
 
 \begin{figure}[H]
     \centering
@@ -211,7 +211,7 @@ Operacija spu\v{s}tanja se radi u vi\v{s}e koraka. Intuitivno, ukoliko je uslov 
     \item Rekurzivno ponoviti prethoda dva koraka za sve roditelje kojima su dvaput se\v{c}eni sinovi. 
 \end{itemize}
 
-Kako bi se osigurala kompleksnost operacie extract_min i decrease_key, potrebno je balansirati vrednost funkcije potencijala. Ovo je posti\v{z}e vodjenjem ra\v{c}una o markiranju i brisanju \v{c}vorova, \v{c}ime se odr\v{z}ava \emph{ispravljenost} hipova.
+Kako bi se osigurala kompleksnost operacije \texttt{extract\_min} i \texttt{decrease\_key}, potrebno je balansirati vrednost funkcije potencijala. Ovo se posti\v{z}e vodjenjem ra\v{c}una o markiranju i brisanju \v{c}vorova, \v{c}ime se odr\v{z}ava \emph{ispravljenost} hipova.
 Slo\v{z}enost operacije spu\v{s}tanja klju\v{c}a je $O(c)$, naime potrebno je $O(1)$ vreme za izmenu vrednosti klju\v{c}a i $O(1)$ vreme za svako od $c$ se\v{c}enja, uz dodavanje u listu korenova. Promena potencijala je $O(1) - c$, pa je amortizovana slo\v{z}enost $O(1)$.
 
 Operacija brisanja \v{c}vora $x$ se mo\v{z}e implementirati korist\'c{}i ve\'c{} opisane operacije: prvo \texttt{decrease\_key(}$x$, $-\infty$\texttt{)}  (kako bi se garantovalo da \'c{}e on onda postati minimum hipa) zatim \texttt{extract\_min} (kako bi se taj novonastali minimum uklonio).
@@ -248,7 +248,7 @@ A tree of order n has exactly n children.
 Trees of order n are formed by taking two trees of order n - 1 and making one the child of another.
 If a tree loses two children, that tree is cut away from its parent.
 
-Ozna\v{c}imo sa $F_{k}$ najmanje mogu\'c{}e stablo ranka $k$ koje zadovoljava uslov iznad. Ovakvo stablo je mogu\'{c}e konstruisati ranije opisanim operacijama Fubona\v{c}ijevog hipa. Tokom izvr\v{s}avanja operacije extract_min, stablo ranka $n$ dobijamo povezivanjem dva stabla ranka $n - 1$. U suprotnom, u operaciji decrease_min, ukoliko jedan \v{c}vor izgubi dva deteta, i ono samo je odse\v{c}eno od svog roditelja. Ovim osiguravamo da broj \v{c}vorova odgovara Fibona\v{c}ijevim brojevima. Postoji veza - broj \v{c}vorova u $F_{k}$ je ba\v{s} $k$-ti Fibona\v{c}ijev broj:
+Ozna\v{c}imo sa $F_{k}$ najmanje mogu\'c{}e stablo ranka $k$ koje zadovoljava uslov iznad. Ovakvo stablo je mogu\'{c}e konstruisati ranije opisanim operacijama Fubona\v{c}ijevog hipa. Tokom izvr\v{s}avanja operacije \texttt{extract\_min}, stablo ranka $n$ dobijamo povezivanjem dva stabla ranka $n - 1$. U suprotnom, u operaciji \texttt{decrease\_min}, ukoliko jedan \v{c}vor izgubi dva deteta, i ono samo je odse\v{c}eno od svog roditelja. Ovim osiguravamo da broj \v{c}vorova odgovara Fibona\v{c}ijevim brojevima. Postoji veza - broj \v{c}vorova u $F_{k}$ je ba\v{s} $k$-ti Fibona\v{c}ijev broj:
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.85]{resources/fig6a.PNG}\\
@@ -258,20 +258,20 @@ Ozna\v{c}imo sa $F_{k}$ najmanje mogu\'c{}e stablo ranka $k$ koje zadovoljava us
 S obzirom da je $F_{k} \geq \phi^{k}$, gde je $\phi = (1 + \sqrt{5}) / 2$, dobijamo da je:
 $$rank(H) \leq \log_{\phi}{n} $$
 
-Iz ovoga zaklju\v{c}ujemo da je kompleksnost operacije extract_min $O(\log{n})$.
+Iz ovoga zaklju\v{c}ujemo da je kompleksnost operacije \texttt{extract\_min} $O(\log{n})$.
 
 \section{Poredjenje efikasnosti}
 \label{sec:Exp}
 Kako bismo ispitali efikasnost na\v{s}e implementacije Fibona\v{c}ijevog hipa, implementirali smo i standardan binarni hip. U narednim podsekcijama su prikazani rezultati poredjenja efikasnosti ova dva hipa.
 
-Poredjenje efikasnosti operacije decrease_key vr\v{s}imo na slede\'{c}i na\v{c}in:
+Poredjenje efikasnosti operacije \texttt{decrease\_key} vr\v{s}imo na slede\'{c}i na\v{c}in:
 \begin{itemize}
     \item Kreiramo Fibona\v{c}ijev i binarni hip.
     \item U oba hipa ubacimo $n$ random generisanih vrednosti.
-    \item N puta izvr\v{s}imo operaciju na oba hipa i merimo njihovo ukupno vreme izvr\v{s}avanja.
+    \item $N$ puta izvr\v{s}imo operaciju na oba hipa i merimo njihovo ukupno vreme izvr\v{s}avanja.
 \end{itemize}
 
-\subsection{\texttt{extract_min benchmark}}
+\subsection{\texttt{extract\_min} benchmark}
 \label{subsec:ExpExtractMin}
 $n = 100$
 binheap: \t0.003965616226196289s
@@ -285,7 +285,7 @@ $n = 10000$
 binheap: 0.6527743339538574s
 fheap: 3.014829635620117s
 
-\subsection{\texttt{decrease_key benchmark}}
+\subsection{\texttt{decrease\_key} benchmark}
 \label{subsec:ExpDecreaseKey}
 $n = 100$
 binheap: 0.0010502338409423828s
