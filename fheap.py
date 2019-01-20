@@ -258,3 +258,25 @@ class FibonacciHeap:
             print()
             for child in self.iterate(node.child):
                 self.print_tree(child)
+
+    # Find node in whole heap that is greater than value.
+    def find_node_greater_than(self, value):
+        if self.root_list is not None:
+            for heap in self.iterate():
+                result = self.find_child_greater_than(heap, value)
+                if result != None:
+                    return result
+        raise ValueError(f'There is no element in the heap that is greater than {value}.')
+    
+    # Find node in the child list that is greater than value.
+    def find_child_greater_than(self, node, value):
+        if node is None:
+            return None
+        elif node.value > value:
+            return node
+        if node.child is not None:
+            for child in self.iterate(node.child):
+                result = self.find_child_greater_than(child, value)
+                if result is not None:
+                    return result
+        return None

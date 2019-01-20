@@ -45,6 +45,12 @@ class BinHeap:
       self.cascade_down(1)
       return retval
 
+    def decrease_key(self, i, value):
+        if value > self.heap_list[i]:
+            raise ValueError("Cannot decrease key with a value greater than what it already is.")
+        self.heap_list[i] = value
+        self.cascade_up(i)
+
     def build_heap(self, alist):
       i = len(alist) // 2
       self.current_size = len(alist)
@@ -52,3 +58,9 @@ class BinHeap:
       while (i > 0):
           self.cascade_down(i)
           i = i - 1
+
+    def find_index_of_not(self, value):
+        for i in range(0, self.current_size - 1):
+            if self.heap_list[self.current_size - i] != value:
+                return self.current_size - i
+        raise ValueError(f"Cannot find an element that is not {value}.")
