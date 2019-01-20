@@ -61,7 +61,7 @@
 \maketitle
 
 \abstract{
-    Fibona\v{c}ijev hip je struktura podataka osmi\v{s}ljena sa ciljem da pobolj\v{s}a vreme potrebno za operacije nad hipovima. Pru\v{z}aju bolje amortizovano vreme izvr\v{s}avanja nego ve\'c{}ina drugih prioritetnih redova, uklju\v{c}uju\'c{}i binarni i binomni hip. Fibona\v{c}ijev hip je osmi\v{s}ljen 1984. godine i publikovan 1987. Ime je dobio po Fibona\v{c}ijevim brojevima, koji se koriste u analizi slo\v{z}enosti operacija. Koriste\'c{}i Fibona\v{c}ijev hip, mogu\'c{}e je unaprediti vremena izvr\v{s}avanja velikog broja poznatih algoritama kao \v{s}to je Dijsktrin algoritam. Pru\v{z}amo implementaciju Fibona\v{c}ijevog hipa u programskom jeziku \emph{Python}, sa interfejsom jednostavnim za upotrebu i testiranje. Takodje u ovom radu testiramo vreme izvr\v{s}avanja operacije \emph{decrease-key} kako bismo eksperimentalno pokazali konstantno amortizovano vreme izvr\v{s}avanja ove operacije.
+    Fibona\v{c}ijev hip je struktura podataka osmi\v{s}ljena sa ciljem da pobolj\v{s}a vreme potrebno za operacije nad hipovima. Pru\v{z}aju bolje amortizovano vreme izvr\v{s}avanja nego ve\'c{}ina drugih prioritetnih redova, uklju\v{c}uju\'c{}i binarni i binomni hip. Fibona\v{c}ijev hip je osmi\v{s}ljen 1984. godine i publikovan 1987. Ime je dobio po Fibona\v{c}ijevim brojevima, koji se koriste u analizi slo\v{z}enosti operacija. Koriste\'c{}i Fibona\v{c}ijev hip, mogu\'c{}e je unaprediti vremena izvr\v{s}avanja velikog broja poznatih algoritama kao \v{s}to je Dijsktrin algoritam. Pru\v{z}amo implementaciju Fibona\v{c}ijevog hipa u programskom jeziku \emph{Python}, sa interfejsom jednostavnim za upotrebu i testiranje. Takođe u ovom radu testiramo vreme izvr\v{s}avanja operacije \emph{decrease-key} kako bismo eksperimentalno pokazali konstantno amortizovano vreme izvr\v{s}avanja ove operacije.
 }
 
 \tableofcontents
@@ -80,7 +80,7 @@
     \item \texttt{merge(h)} - unija sa novim hipom $h$.
 \end{itemize}
 
-\emph{Fibona\v{c}ijev hip} \cite{Book} je osmi\v{s}ljen 1984. od strane Fredman-a i Tarjan-a sa ciljem da se pobolj\v{s}a vreme izvr\v{s}avanja Dijkstrinog algoritma za pronala\v{z}enje najkra\'c{}ih puteva. Originalni Dijsktrin algoritam koji koristi binarni hip radi u vremenskoj slo\v{z}enosti $O(|E|\log{|V|})$. Kori\v{s}\'c{}enjem Fibona\v{c}ijevog hipa umesto binarnog hipa, vremensku slo\v{z}enost Dijsktrinog algoritma je mogu\'c{}e pobolj\v{s}ati do $O(|E| + |V|\log{|V|})$. Poredjenje vremena izvr\v{s}avanja u odnosu na binarni hip se mo\v{z}e videti na slede\'c{}oj tabeli:
+\emph{Fibona\v{c}ijev hip} \cite{Book} je osmi\v{s}ljen 1984. od strane Fredman-a i Tarjan-a sa ciljem da se pobolj\v{s}a vreme izvr\v{s}avanja Dijkstrinog algoritma za pronala\v{z}enje najkra\'c{}ih puteva. Originalni Dijsktrin algoritam koji koristi binarni hip radi u vremenskoj slo\v{z}enosti $O(|E|\log{|V|})$. Kori\v{s}\'c{}enjem Fibona\v{c}ijevog hipa umesto binarnog hipa, vremensku slo\v{z}enost Dijsktrinog algoritma je mogu\'c{}e pobolj\v{s}ati do $O(|E| + |V|\log{|V|})$. Poređenje vremena izvr\v{s}avanja u odnosu na binarni hip se mo\v{z}e videti na slede\'c{}oj tabeli:
 
 \begin{table}[H]
 \centering
@@ -96,7 +96,7 @@
     \hline
 \end{tabular}
 \label{tbl:fig1}
-\caption{Poredjenje vremena izvr\v{s}avanja operacija izmedju Fibona\v{c}ijevog i binarnog hipa.}
+\caption{Poređenje vremena izvr\v{s}avanja operacija između Fibona\v{c}ijevog i binarnog hipa.}
 \end{table}
 
 U nastavku \'{c}e biti detaljnije opisana struktura hipa (odeljak \ref{sec:Struktura}) i operacije nad njim (odeljak \ref{sec:Operacije}). U daljem tekstu \'c{}emo pretpostaviti da se radi o min-hipu, analogno va\v{z}i i za max-hip.
@@ -105,7 +105,7 @@ U nastavku \'{c}e biti detaljnije opisana struktura hipa (odeljak \ref{sec:Struk
 \section{Opis strukture}
 \label{sec:Struktura}
 
-Fibona\v{c}ijev hip je skup stabala uredjenih po uslovu hipa (videti sliku \ref{fig1}). Koreni tih hipova se \v{c}uvaju u dvostruko povezanoj listi radi lak\v{s}eg ubacivanja i izbacivanja. Takodje se \v{c}uva pokaziva\v{c} na najmanji element, kako bi se upit mogao izvr\v{s}iti u konstantnom vremenu. 
+Fibona\v{c}ijev hip je skup stabala uređenih po uslovu hipa (videti sliku \ref{fig1}). Koreni tih hipova se \v{c}uvaju u dvostruko povezanoj listi radi lak\v{s}eg ubacivanja i izbacivanja. Takođe se \v{c}uva pokaziva\v{c} na najmanji element, kako bi se upit mogao izvr\v{s}iti u konstantnom vremenu. 
 
 \begin{figure}[H]
     \centering
@@ -211,7 +211,7 @@ Operacija spu\v{s}tanja se radi u vi\v{s}e koraka. Intuitivno, ukoliko je uslov 
     \item Rekurzivno ponoviti prethoda dva koraka za sve roditelje kojima su dvaput se\v{c}eni sinovi. 
 \end{itemize}
 
-Kako bi se osigurala kompleksnost operacije \texttt{extract\_min} i \texttt{decrease\_key}, potrebno je balansirati vrednost funkcije potencijala. Ovo se posti\v{z}e vodjenjem ra\v{c}una o markiranju i brisanju \v{c}vorova, \v{c}ime se odr\v{z}ava \emph{ispravljenost} hipova.
+Kako bi se osigurala kompleksnost operacije \texttt{extract\_min} i \texttt{decrease\_key}, potrebno je balansirati vrednost funkcije potencijala. Ovo se posti\v{z}e vođenjem ra\v{c}una o markiranju i brisanju \v{c}vorova, \v{c}ime se odr\v{z}ava \emph{ispravljenost} hipova.
 Slo\v{z}enost operacije spu\v{s}tanja klju\v{c}a je $O(c)$, naime potrebno je $O(1)$ vreme za izmenu vrednosti klju\v{c}a i $O(1)$ vreme za svako od $c$ se\v{c}enja, uz dodavanje u listu korenova. Promena potencijala je $O(1) - c$, pa je amortizovana slo\v{z}enost $O(1)$.
 
 Operacija brisanja \v{c}vora $x$ se mo\v{z}e implementirati korist\'c{}i ve\'c{} opisane operacije: prvo \texttt{decrease\_key(}$x$, $-\infty$\texttt{)}  (kako bi se garantovalo da \'c{}e on onda postati minimum hipa) zatim \texttt{extract\_min} (kako bi se taj novonastali minimum uklonio).
@@ -260,11 +260,11 @@ $$rank(H) \leq \log_{\phi}{n} $$
 
 Iz ovoga zaklju\v{c}ujemo da je kompleksnost operacije \texttt{extract\_min} $O(\log{n})$.
 
-\section{Poredjenje efikasnosti}
+\section{Poređenje efikasnosti}
 \label{sec:Exp}
-Kako bismo ispitali efikasnost na\v{s}e implementacije Fibona\v{c}ijevog hipa, implementirali smo i standardan binarni hip. U narednim podsekcijama su prikazani rezultati poredjenja efikasnosti ova dva hipa.
+Kako bismo ispitali efikasnost na\v{s}e implementacije Fibona\v{c}ijevog hipa, implementirali smo i standardan binarni hip. U narednim podsekcijama su prikazani rezultati poređenja efikasnosti ova dva hipa.
 
-Poredjenje efikasnosti operacije \texttt{decrease\_key} vr\v{s}imo na slede\'{c}i na\v{c}in:
+Poređenje efikasnosti operacije \texttt{decrease\_key} vr\v{s}imo na slede\'{c}i na\v{c}in:
 \begin{itemize}
     \item Kreiramo Fibona\v{c}ijev i binarni hip.
     \item U oba hipa ubacimo $n$ random generisanih vrednosti.
