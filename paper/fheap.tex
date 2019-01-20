@@ -264,13 +264,40 @@ Iz ovoga zaklju\v{c}ujemo da je kompleksnost operacije extract_min $O(\log{n})$.
 \label{sec:Exp}
 Kako bismo ispitali efikasnost na\v{s}e implementacije Fibona\v{c}ijevog hipa, implementirali smo i standardan binarni hip. U narednim podsekcijama su prikazani rezultati poredjenja efikasnosti ova dva hipa.
 
-\subsection{\texttt{extract_min}}
+Poredjenje efikasnosti operacije decrease_key vr\v{s}imo na slede\'{c}i na\v{c}in:
+\begin{itemize}
+    \item Kreiramo Fibona\v{c}ijev i binarni hip.
+    \item U oba hipa ubacimo $n$ random generisanih vrednosti.
+    \item N puta izvr\v{s}imo operaciju na oba hipa i merimo njihovo ukupno vreme izvr\v{s}avanja.
+\end{itemize}
+
+\subsection{\texttt{extract_min benchmark}}
 \label{subsec:ExpExtractMin}
+$n = 100$
+binheap: \t0.003965616226196289s
+fheap: \t0.02899909019470215s
 
+$n = 1000$
+binheap: 0.05807352066040039s
+fheap: 0.2644772529602051s
 
-\subsection{\texttt{decrease_key}}
+$n = 10000$
+binheap: 0.6527743339538574s
+fheap: 3.014829635620117s
+
+\subsection{\texttt{decrease_key benchmark}}
 \label{subsec:ExpDecreaseKey}
+$n = 100$
+binheap: 0.0010502338409423828s
+fheap: 0.0010502338409423828s
 
+$n = 1000$
+binheap: 0.01744818687438965s
+fheap: 0.02191758155822754s
+
+$n = 10000$
+binheap: 0.2323460578918457s
+fheap: 0.293259859085083s
 
 \addcontentsline{toc}{section}{Literatura}
 \appendix

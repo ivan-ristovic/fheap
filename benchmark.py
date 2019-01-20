@@ -36,7 +36,6 @@ print(f"Done running extract_min banchmark!")
 
 f = FibonacciHeap()
 bh = BinHeap()
-n = 10000
 
 print(f"Inserting {n} numbers into heaps... ", end='')
 for i in range(0, n):
